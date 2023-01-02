@@ -19,20 +19,32 @@ defmodule HelloSockets.HelloSockets.Queries do
     )
   end
 
-  # create
-  def create_thread(data) do
+  # upsert
+  def upsert_thread(data) do
     thread = %Thread{} |> Thread.changeset(data)
-    HelloSockets.Repo.insert!(thread)
+
+    HelloSockets.Repo.insert!(
+      thread,
+      on_conflict: :replace_all,
+      conflict_target: :id
+    )
+
     thread
   end
 
-  def create_comment(data) do
+  def upsert_comment(data) do
     comment = %Comment{} |> Comment.changeset(data)
-    HelloSockets.Repo.insert!(comment)
+
+    HelloSockets.Repo.insert!(
+      comment,
+      on_conflict: :replace_all,
+      conflict_target: :id
+    )
+
     comment
   end
 
-  # rest
+  # debug
   def all() do
     HelloSockets.Repo.all(from(p in Comment, select: p))
   end

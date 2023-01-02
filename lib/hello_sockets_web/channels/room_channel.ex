@@ -15,8 +15,8 @@ defmodule HelloSocketsWeb.RoomChannel do
     comments = Protocol.comments_from_messages(body)
     threads = Protocol.threads_from_message(body)
 
-    for t <- threads, do: Queries.create_thread(t)
-    for c <- comments, do: Queries.create_comment(c)
+    for t <- threads, do: Queries.upsert_thread(t)
+    for c <- comments, do: Queries.upsert_comment(c)
 
     broadcast!(socket, "new_msg", %{body: body})
     {:noreply, socket}

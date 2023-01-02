@@ -3,7 +3,7 @@ defmodule HelloSocketsWeb.CommentController do
   alias HelloSockets.HelloSockets.Queries
 
   def create(conn, _params) do
-    _ = Queries.create_comment(conn.body_params)
+    _ = Queries.upsert_comment(conn.body_params)
     json(conn, conn.body_params)
   end
 
