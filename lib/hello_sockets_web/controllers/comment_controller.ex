@@ -11,9 +11,4 @@ defmodule HelloSocketsWeb.CommentController do
     comments = Queries.all()
     json(conn, comments)
   end
-
-  def since(conn, %{ "since" => since }) do
-    comments = Queries.since(since)
-    json(conn, comments)
-  end
 end

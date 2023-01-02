@@ -23,11 +23,14 @@ defmodule HelloSocketsWeb.RoomChannel do
   end
 
   def handle_in("refresh", %{"timestamp" => timestamp, "workspace_id" => workspace_id}, socket) do
-    comments = Queries.comments_since(workspace_id, timestamp)
+    comments =
+      Queries.comments_since(workspace_id, timestamp)
       |> Protocol.comments_to_message()
-    threads = Queries.threads_since(workspace_id, timestamp)
+
+    threads =
+      Queries.threads_since(workspace_id, timestamp)
       |> Protocol.threads_to_message()
 
-    {:reply, {:ok, %{ "body" => threads ++ comments }}, socket}
+    {:reply, {:ok, %{"body" => threads ++ comments}}, socket}
   end
 end

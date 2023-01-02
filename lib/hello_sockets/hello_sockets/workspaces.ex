@@ -4,10 +4,10 @@ defmodule HelloSockets.Workspaces do
 
   @primary_key false
   schema "workspaces" do
-    field :id, :string, primary_key: true
-    field :created_at, :integer
-    field :deleted, :boolean
-    field :updated_at, :integer
+    field(:id, :string, primary_key: true)
+    field(:created_at, :integer)
+    field(:deleted, :boolean)
+    field(:updated_at, :integer)
   end
 
   @doc false
