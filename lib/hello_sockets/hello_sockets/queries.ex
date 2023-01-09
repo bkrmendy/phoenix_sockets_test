@@ -8,14 +8,20 @@ defmodule HelloSockets.HelloSockets.Queries do
   @spec comments_since(String.t(), number()) :: any
   def comments_since(workspace, since) do
     HelloSockets.Repo.all(
-      from(p in Comment, where: p.workspace_id == ^workspace and p.updated_at > ^since, select: p)
+      from(p in Comment,
+        where: p.workspace_id == ^workspace and p.updated_at > ^since and p.deleted == false,
+        select: p
+      )
     )
   end
 
   @spec threads_since(String.t(), number()) :: any
   def threads_since(workspace, since) do
     HelloSockets.Repo.all(
-      from(t in Thread, where: t.workspace_id == ^workspace and t.updated_at > ^since, select: t)
+      from(t in Thread,
+        where: t.workspace_id == ^workspace and t.updated_at > ^since and t.deleted == false,
+        select: t
+      )
     )
   end
 
