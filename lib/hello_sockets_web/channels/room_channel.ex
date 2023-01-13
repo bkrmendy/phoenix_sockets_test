@@ -22,6 +22,11 @@ defmodule HelloSocketsWeb.RoomChannel do
     {:noreply, socket}
   end
 
+  def handle_in("cursor", %{"body" => body}, socket) do
+    broadcast!(socket, "cursor", %{body: body})
+    {:noreply, socket}
+  end
+
   def handle_in("refresh", %{"timestamp" => timestamp, "workspace_id" => workspace_id}, socket) do
     comments =
       Queries.comments_since(workspace_id, timestamp)
